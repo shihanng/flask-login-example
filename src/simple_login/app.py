@@ -9,6 +9,7 @@ import json
 import random
 import hashlib
 import requests
+import time
 app = Flask(__name__)
 
 HOSTNAME = os.environ.get("HOSTNAME", default="http://localhost:5000")
@@ -57,6 +58,17 @@ def generate_nonce(length=8):
 @app.route("/", methods=['GET'])
 def index() -> Response:
     return render_template('index.html')
+
+
+@app.route("/slow/<delay>", methods=['GET'])
+def slow(delay: str) -> Response:
+    app.logger.debug('start slow for session %s', session.sid)
+
+    time.sleep(int(delay))
+
+    response = make_response(json.dumps('From /slow/ '+delay), 200)
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 
 @app.route("/login", methods=['GET'])

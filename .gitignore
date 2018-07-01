@@ -3,3 +3,6 @@ __pycache__
 *.pyc
 .envrc
 *.egg-info
+.vagrant/
+.mypy_cache/
+flask_session/

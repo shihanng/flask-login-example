@@ -10,6 +10,7 @@ import random
 import hashlib
 import requests
 import time
+from typing import Dict, Optional
 app = Flask(__name__)
 
 HOSTNAME = os.environ.get("HOSTNAME", default="http://localhost:5000")
@@ -26,8 +27,6 @@ Session(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-users = {}
-
 
 @attr.s
 class User(object):
@@ -40,13 +39,16 @@ class User(object):
         return self.id
 
 
+users: Dict[str, User] = {}
+
+
 @login_manager.user_loader
-def load_user(user_id) -> User:
+def load_user(user_id) -> Optional[User]:
     app.logger.debug('looking for user %s', user_id)
     u = users.get(user_id, None)
     app.logger.debug('id is %s', id)
     if not id:
-        return id
+        return None
     return u
 
 

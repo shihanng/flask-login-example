@@ -9,5 +9,7 @@ setup(
         "flask>=1.0",
         "requests>=2.19.1",
         "Flask-Session>=0.3.1",
+        "flask-login>=0.4.1",
+        "attr",
     ],
 )

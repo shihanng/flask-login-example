@@ -1,6 +1,8 @@
 from flask import Flask, session, current_app, render_template, redirect
 from flask import make_response, request, Response
 from flask_session import Session
+from flask_login import LoginManager, login_required, login_user
+import attr
 import os
 import base64
 import json
@@ -19,6 +21,32 @@ app.config.from_object(__name__)
 app.url_map.strict_slashes = False
 
 Session(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+users = {}
+
+
+@attr.s
+class User(object):
+    id = attr.ib()
+    is_authenticated = True
+    is_active = True
+    is_anonymous = False
+
+    def get_id(self):
+        return self.id
+
+
+@login_manager.user_loader
+def load_user(user_id) -> User:
+    app.logger.debug('looking for user %s', user_id)
+    u = users.get(user_id, None)
+    app.logger.debug('id is %s', id)
+    if not id:
+        return id
+    return u
 
 
 def generate_nonce(length=8):
@@ -100,6 +128,19 @@ def callback() -> Response:
 
     user_id = 'google-' + jwt_payload['sub']
 
+    u = User(user_id)
+
+    # Automatically add users to DB (a dict).
+    users[user_id] = u
+
+    login_user(u)
+
     response = make_response(json.dumps(user_id))
     response.headers['Content-Type'] = 'application/json'
     return response
+
+
+@app.route("/secret", methods=['GET'])
+@login_required
+def secret() -> Response:
+    return render_template('secret.html')

@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn instance to serve simple_login
+After=network.target
+
+[Service]
+User=vagrant
+Group=nginx
+WorkingDirectory=/simple_login
+EnvironmentFile=-/etc/sysconfig/simple_login
+Environment="PATH=/usr/bin"
+ExecStart=/usr/bin/gunicorn --workers 3 --bind unix:simple_login.sock -m 007 --pythonpath src/simple_login app:app
+
+[Install]
+WantedBy=multi-user.target

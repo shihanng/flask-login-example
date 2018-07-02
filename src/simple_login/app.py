@@ -17,7 +17,7 @@ HOSTNAME = os.environ.get("HOSTNAME", default="http://localhost:5000")
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", default="")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", default="")
 SESSION_TYPE = 'filesystem'
-SECRET_KEY = os.environ.get("GOOGLE_CLIENT_SECRET", default="super-secret")
+SECRET_KEY = os.environ.get("SECRET_KEY", default="super-secret")
 
 app.config.from_object(__name__)
 app.url_map.strict_slashes = False

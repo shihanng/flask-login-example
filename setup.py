@@ -13,4 +13,9 @@ setup(
         "attrs",
         "gunicorn",
     ],
+    entry_points={
+        "console_scripts": [
+            "app = simple_login.app:app.run",
+        ],
+    },
 )

@@ -10,8 +10,8 @@ setup(
         "requests>=2.19.1",
         "Flask-Session>=0.3.1",
         "flask-login>=0.4.1",
-        "attrs",
-        "gunicorn",
+        "attrs>=18.1.0",
+        "gunicorn>=19.8.1",
     ],
     entry_points={
         "console_scripts": [

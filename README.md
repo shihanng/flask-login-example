@@ -12,6 +12,8 @@ See [setup.py](./setup.py) for the dependencies.
 
 ## Start Development Server
 
+Let's make sure that everything is running as promised.
+
 ##### 1. Create a virtual environment and install the dependencies.
 ```sh
 python3 -mvenv env
@@ -38,6 +40,10 @@ app
 ```
 
 ##### 4. Visit [localhost:5000](http://localhost:5000) to confirm the app is running.
+Process with the "login from here" and complete the login.
+Then visit [localhost:5000/secret](http://localhost:5000/secret)
+We should be able to see
+> Only logged in user can see this.
 
 ## Others
 

@@ -13,11 +13,12 @@ import time
 from typing import Dict, Optional
 app = Flask(__name__)
 
-HOSTNAME = os.environ.get("HOSTNAME", default="http://localhost:5000")
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", default="")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", default="")
-SESSION_TYPE = 'filesystem'
+HOSTNAME = os.environ.get("HOSTNAME", default="http://localhost:5000")
 SECRET_KEY = os.environ.get("SECRET_KEY", default="super-secret")
+
+SESSION_TYPE = 'filesystem'
 
 app.config.from_object(__name__)
 app.url_map.strict_slashes = False

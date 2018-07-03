@@ -45,6 +45,33 @@ Then visit [localhost:5000/secret](http://localhost:5000/secret)
 We should be able to see
 > Only logged in user can see this.
 
+## Walk-through
+
+As the `entry_points` in [setup.py](./setup.py) indicates, the application
+starts from [./src/simple_login/app.py](./src/simple_login/app.py).
+
+### Configurations
+
+The configuations of the application are stored in the environment.
+This is one of the practices recommended by
+[the Twelve-Factor App](https://12factor.net/config).
+
+```python
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", default="")
+```
+
+To load the configurations into our application, we use,
+```python
+app.config.from_object(__name__)
+```
+which loads only the uppercase attributes of the module/class.
+To access the configurations within the application, we do
+```python
+current_app.config["GOOGLE_CLIENT_ID"]
+```
+Check out the official documentation to learn more about
+[configuration handling](http://flask.pocoo.org/docs/1.0/config/).
+
 ## Others
 
 - [ ] Session type filesystem

@@ -1,9 +1,14 @@
 # simple-login
 
-A very simple [Flask](http://flask.pocoo.org/) application that demonstrates
-how to integrate [OpenID connect](http://openid.net/connect/) into
-user session management (provided by the
-[Flask-Login](http://flask-login.readthedocs.io/en/latest/) library).
+The aim of this document is to provide a simple guide on
+how to create a web application that requires user to login
+via [OpenID connect](http://openid.net/connect/) to view a specific page.
+The web application is built with [Python 3](https://www.python.org/)
+and the [Flask](http://flask.pocoo.org/).
+The user login session is managed with the help of
+[Flask-Login](http://flask-login.readthedocs.io/en/latest/) and
+[Flask-Session](https://pythonhosted.org/Flask-Session/).
+See [setup.py](./setup.py) for the dependencies.
 
 ## Start Development Server
 

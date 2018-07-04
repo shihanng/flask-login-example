@@ -72,6 +72,27 @@ current_app.config["GOOGLE_CLIENT_ID"]
 Check out the official documentation to learn more about
 [configuration handling](http://flask.pocoo.org/docs/1.0/config/).
 
+### Sessions
+
+The default [Flask's session](http://flask.pocoo.org/docs/1.0/api/#flask.session)
+stores the values in cookies not on the server side by default.
+This means that we should not store anything sensitive in the default cookie.
+For server side session, we can use the extension
+[Flask-Session](https://pythonhosted.org/Flask-Session/)
+Here in [our example](./src/simple_login/app.py) we setup the application
+to store the session in our local filesystem.
+```python
+SESSION_TYPE = 'filesystem'
+
+Session(app)
+```
+Then use the [flask.session](http://flask.pocoo.org/docs/api/#flask.session)
+object which works like an ordinary dict to access the values:
+```python
+session['state'] = state  # Store
+v = session['state']      # Retrieve
+```
+
 ## Others
 
 - [ ] Session type filesystem

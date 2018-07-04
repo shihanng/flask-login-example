@@ -45,7 +45,7 @@ Then visit [localhost:5000/secret](http://localhost:5000/secret)
 We should be able to see
 > Only logged in user can see this.
 
-## Walk-through
+## The Essentials
 
 As the `entry_points` in [setup.py](./setup.py) indicates, the application
 starts from [./src/simple_login/app.py](./src/simple_login/app.py).

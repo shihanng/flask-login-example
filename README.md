@@ -128,6 +128,36 @@ within the application.
 users: Dict[str, User] = {}
 ```
 
+## Walk-through
+
+1. When a user visits [localhost:5000](http://localhost:5000),
+   Flask will render the index page using the
+   [templates/index.html](./templates/index.html)
+   that lead the user to [localhost:5000/login](http://localhost:5000/login).
+
+2. The login process starts with creating an anti-forgery state token,
+   and nonce for replay protection.
+   Both values are stored in the server-side session and the client (browser)
+   holds the session ID in cookies.
+
+3. Then an authentication request is sent to Google and the user will be
+   redirect to the Google consent page.
+
+4. The response after the consent is given will be received by
+   the `/callback` endpoint. At this point we should verify that the value of
+   the `state` from Google matches the one we've stored in the session.
+
+5. Using the `code` parameter from the response, a POST request is made to
+   Google for exchanging the access token and ID token.
+
+6. The `id_token` (a JWT) field should be found in the successful response
+   to the POST request. After base64 decode the `id_token` we should verify
+   the `nonce` field and remove the `nonce` from our session.
+   Then we create the our application User based on the
+   id obtained from the `sub` field, store it in our `users` DB,
+   and login the user with Flask-Login: `login_user(u)`.
+
+
 ## Others
 
 - [ ] https://developers.google.com/identity/protocols/OpenIDConnect

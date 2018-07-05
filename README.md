@@ -93,6 +93,41 @@ session['state'] = state  # Store
 v = session['state']      # Retrieve
 ```
 
+### Managing Logins
+
+We can manage user login with the
+[Flask-Login](http://flask-login.readthedocs.io/en/latest/)
+library which store active user's ID in the session that we've setup above.
+```python
+login_manager = LoginManager()
+login_manager.init_app(app)
+```
+In addition to the setup above, we also need to provide a our user class.
+```python
+class User(object):
+```
+and a [`user_loader`](http://flask-login.readthedocs.io/en/latest/#how-it-works)
+callback which will return either the user of a given `user_id` from the database,
+or None if the Id is invalid:
+
+```python
+@login_manager.user_loader
+def load_user(user_id) -> Optional[User]:
+    app.logger.debug('looking for user %s', user_id)
+    u = users.get(user_id, None)
+    app.logger.debug('id is %s', id)
+    if not id:
+        return None
+    return u
+```
+
+For the sake of simplicity, our database is just a simple dict
+within the application.
+
+```python
+users: Dict[str, User] = {}
+```
+
 ## Others
 
 - [ ] Session type filesystem

@@ -47,7 +47,6 @@ users: Dict[str, User] = {}
 def load_user(user_id) -> Optional[User]:
     app.logger.debug('looking for user %s', user_id)
     u = users.get(user_id, None)
-    app.logger.debug('id is %s', id)
     if not id:
         return None
     return u

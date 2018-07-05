@@ -156,9 +156,3 @@ users: Dict[str, User] = {}
    Then we create the our application User based on the
    id obtained from the `sub` field, store it in our `users` DB,
    and login the user with Flask-Login: `login_user(u)`.
-
-
-## Others
-
-- [ ] https://developers.google.com/identity/protocols/OpenIDConnect
-- [ ] gunicorn -b 0.0.0.0:5000 --pythonpath src/simple_login  app:app

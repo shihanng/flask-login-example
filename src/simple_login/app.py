@@ -62,17 +62,6 @@ def index() -> Response:
     return render_template('index.html')
 
 
-@app.route("/slow/<delay>", methods=['GET'])
-def slow(delay: str) -> Response:
-    app.logger.debug('start slow for session %s', session.sid)
-
-    time.sleep(int(delay))
-
-    response = make_response(json.dumps('From /slow/ '+delay), 200)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-
-
 @app.route("/login", methods=['GET'])
 def login() -> Response:
     # 1. Create an anti-forgery state token
